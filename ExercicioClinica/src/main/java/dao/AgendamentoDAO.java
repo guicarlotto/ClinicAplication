@@ -2,7 +2,7 @@ package dao;
 
 import factory.ConnectionFactory;
 import modelo.Agendamento;
-
+import modelo.Consulta;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,15 +34,17 @@ public class AgendamentoDAO {
         rs.close();
         stmt.close();
 
-        sql = "INSERT INTO agendamentos (id_paciente, nome_paciente, data_agendamento) VALUES (?, ?, ?)";
+        sql = "INSERT INTO agendamentos (id_agendamento, id_paciente, nome_paciente, especialidade, data_agendamento) VALUES (?, ?, ?, ?, ?)";
         stmt = connection.prepareStatement(sql);
-        stmt.setLong(1, agendamento.getIdPaciente());
-        stmt.setString(2, agendamento.getNome());
-        stmt.setTimestamp(3, new Timestamp(agendamento.getDataAgendamento().getTime()));
+        stmt.setLong(1, agendamento.getId());
+        stmt.setLong(2, agendamento.getIdPaciente());
+        stmt.setString(3, agendamento.getNome());
+        stmt.setString(4, agendamento.getEspecialidade());
+        stmt.setTimestamp(5, new Timestamp(agendamento.getDataAgendamento().getTime()));
         stmt.executeUpdate();
         stmt.close();
 
-        System.out.println("Agendamento adicionado com sucesso!");
+        System.out.println("\nAgendamento adicionado com sucesso!");
 
     } catch (SQLException e) {
         throw new RuntimeException(e);
@@ -61,12 +63,14 @@ public class AgendamentoDAO {
             while (rs.next()) {
                 long idPaciente = rs.getLong("id_agendamento");
                 String nomePaciente = rs.getString("nome_paciente");
+                String Especialidade = rs.getString("especialidade");
                 Timestamp timestamp = rs.getTimestamp("data_agendamento");
                 Date dataAgendamento = new Date(timestamp.getTime());
 
                 Agendamento consulta = new Agendamento();
                 consulta.setIdPaciente(idPaciente);
                 consulta.setNome(nomePaciente);
+                consulta.setEspecialidade(Especialidade);
                 consulta.setDataAgendamento(dataAgendamento);
                 consultasAgendadas.add(consulta);
             }
@@ -88,8 +92,9 @@ public class AgendamentoDAO {
             stmt.setLong(1, idConsulta);
             int rowsAffected = stmt.executeUpdate();
             stmt.close();
-
+            
             return rowsAffected > 0;
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

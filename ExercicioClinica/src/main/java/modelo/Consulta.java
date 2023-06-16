@@ -6,6 +6,7 @@ public class Consulta {
     private long id;
     private long idPaciente;
     private String nomePaciente;
+    private String especialidade;
     private Date dataAgendamento;
 
     public Consulta() {
@@ -40,6 +41,14 @@ public class Consulta {
 
     public void setNomePaciente(String nomePaciente) {
         this.nomePaciente = nomePaciente;
+    }
+    
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(String nomePaciente) {
+        this.nomePaciente = especialidade;
     }
 
     public Date getDataAgendamento() {

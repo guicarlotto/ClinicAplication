@@ -3,8 +3,10 @@ package modelo;
 import java.util.Date;
 
 public class Agendamento {
+    private long id;
     private long idPaciente;
     private String Nome;
+    private String Especialidade;
     private Date dataAgendamento;
     private int hora;
     private int minuto;
@@ -20,6 +22,14 @@ public class Agendamento {
     public void setNome(String Nome) {
         this.Nome = Nome;
     }
+    
+    public String getEspecialidade() {
+        return Especialidade;
+    }
+
+    public void setEspecialidade(String Especialidade) {
+        this.Especialidade = Especialidade;
+    }
 
     public long getIdPaciente() {
         return idPaciente;
@@ -27,6 +37,14 @@ public class Agendamento {
 
     public void setIdPaciente(long idPaciente) {
         this.idPaciente = idPaciente;
+    }
+    
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Date getDataAgendamento() {

@@ -51,10 +51,10 @@ public class Main {
 
                     System.out.println("\nLista de Pacientes:");
                     for (TelefonePacientes paciente : pacientes) {
-                        System.out.println("/nID: " + paciente.getId() + " | Nome: " + paciente.getNome() + " | Telefone: " + paciente.getTelefone());
+                        System.out.println("\nID: " + paciente.getId() + " | Nome: " + paciente.getNome() + " | Telefone: " + paciente.getTelefone());
                     }
 
-                    System.out.print("Selecione o ID do paciente para agendar a consulta: ");
+                    System.out.print("\nSelecione o ID do paciente para agendar a consulta: ");
                     long idPacienteSelecionado = teclado.nextLong();
                     teclado.nextLine(); // Limpa o buffer de entrada
 
@@ -71,6 +71,8 @@ public class Main {
                         String horaConsulta = teclado.nextLine();
                         System.out.print("\nDigite o nome do paciente: ");
                         String nomeConsulta = teclado.nextLine();
+                        System.out.print("\nDigite a especialidade: ");
+                        String especialidadeConsulta = teclado.nextLine();
 
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                         Date dataAgendamento;
@@ -95,6 +97,7 @@ public class Main {
                             Agendamento novoAgendamento = new Agendamento();
                             novoAgendamento.setIdPaciente(pacienteSelecionado.getId());
                             novoAgendamento.setNome(nomeConsulta);
+                            novoAgendamento.setEspecialidade(especialidadeConsulta);
                             novoAgendamento.setDataAgendamento(dataAgendamento);
                             novoAgendamento.setHora(hora);
                             novoAgendamento.setMinuto(minuto);
@@ -115,7 +118,7 @@ public class Main {
 
                     System.out.println("\nConsultas Agendadas:");
                     for (Agendamento consulta : consultasAgendadas) {
-                        System.out.println("ID: " + consulta.getIdPaciente() + " | Nome Paciente: " + consulta.getNome() + " | Data: " + consulta.getDataAgendamento());
+                        System.out.println("ID: " + consulta.getIdPaciente() + " | Nome Paciente: " + consulta.getNome() + " | Especialidade: " + consulta.getEspecialidade() + " | Data: " + consulta.getDataAgendamento());
                     }
 
                     System.out.print("Selecione o ID do paciente para cancelar a consulta: ");
@@ -125,16 +128,16 @@ public class Main {
                     // Remover a consulta agendada
                     boolean consultaRemovida = agendamentoDAO.removerConsulta(idConsultaSelecionada);
                     if (consultaRemovida) {
-                        System.out.println("Consulta cancelada com sucesso!");
+                        System.out.println("\nConsulta cancelada com sucesso!");
                     } else {
-                        System.out.println("Falha ao cancelar a consulta. Verifique o ID informado.");
+                        System.out.println("\nFalha ao cancelar a consulta. Verifique o ID informado.");
                     }
                     break;
 }
 
                 case 0 -> {
 
-                    System.out.println("Saindo do sistema...");
+                    System.out.println("\nSaindo do sistema...");
                     break;
                 }
 
