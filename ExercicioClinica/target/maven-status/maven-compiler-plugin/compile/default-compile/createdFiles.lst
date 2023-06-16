@@ -1,0 +1,8 @@
+console\Main.class
+dao\AgendamentoDAO.class
+modelo\Consulta.class
+modelo\TelefonePacientes.class
+dao\PacienteDAO.class
+factory\ConnectionFactory.class
+factory\TestConnection.class
+modelo\Agendamento.class
