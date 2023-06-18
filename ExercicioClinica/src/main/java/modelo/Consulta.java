@@ -3,6 +3,7 @@ package modelo;
 import java.util.Date;
 
 public class Consulta {
+
     private long id;
     private long idPaciente;
     private String nomePaciente;
@@ -42,7 +43,7 @@ public class Consulta {
     public void setNomePaciente(String nomePaciente) {
         this.nomePaciente = nomePaciente;
     }
-    
+
     public String getEspecialidade() {
         return especialidade;
     }

@@ -1,17 +1,17 @@
 package modelo;
 
 public class TelefonePacientes {
-    
-        Long id;
-        String nome, telefone; 
-    
-    public TelefonePacientes(String nome, String telefone){
+
+    Long id;
+    String nome, telefone;
+
+    public TelefonePacientes(String nome, String telefone) {
         this.nome = nome;
         this.telefone = telefone;
     }
 
     public TelefonePacientes() {
-        
+
     }
 
     public Long getId() {
@@ -37,5 +37,5 @@ public class TelefonePacientes {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
+
 }

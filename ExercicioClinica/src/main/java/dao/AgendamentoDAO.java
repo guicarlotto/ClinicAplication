@@ -16,41 +16,40 @@ public class AgendamentoDAO {
     }
 
     public void adicionarAgendamento(Agendamento agendamento) {
-    String sql = "SELECT COUNT(*) FROM agendamentos WHERE data_agendamento = ?";
+        String sql = "SELECT COUNT(*) FROM agendamentos WHERE data_agendamento = ?";
 
-    try {
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setTimestamp(1, new Timestamp(agendamento.getDataAgendamento().getTime()));
-        ResultSet rs = stmt.executeQuery();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setTimestamp(1, new Timestamp(agendamento.getDataAgendamento().getTime()));
+            ResultSet rs = stmt.executeQuery();
 
-        if (rs.next()) {
-            int count = rs.getInt(1);
-            if (count > 0) {
-                System.out.println("Já existe um agendamento na mesma data e hora. Não é possível agendar a consulta.");
-                return;
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                if (count > 0) {
+                    System.out.println("Já existe um agendamento na mesma data e hora. Não é possível agendar a consulta.");
+                    return;
+                }
             }
+
+            rs.close();
+            stmt.close();
+
+            sql = "INSERT INTO agendamentos (id_agendamento, id_paciente, nome_paciente, especialidade, data_agendamento) VALUES (?, ?, ?, ?, ?)";
+            stmt = connection.prepareStatement(sql);
+            stmt.setLong(1, agendamento.getId());
+            stmt.setLong(2, agendamento.getIdPaciente());
+            stmt.setString(3, agendamento.getNome());
+            stmt.setString(4, agendamento.getEspecialidade());
+            stmt.setTimestamp(5, new Timestamp(agendamento.getDataAgendamento().getTime()));
+            stmt.executeUpdate();
+            stmt.close();
+
+            System.out.println("\nAgendamento adicionado com sucesso!");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
-        rs.close();
-        stmt.close();
-
-        sql = "INSERT INTO agendamentos (id_agendamento, id_paciente, nome_paciente, especialidade, data_agendamento) VALUES (?, ?, ?, ?, ?)";
-        stmt = connection.prepareStatement(sql);
-        stmt.setLong(1, agendamento.getId());
-        stmt.setLong(2, agendamento.getIdPaciente());
-        stmt.setString(3, agendamento.getNome());
-        stmt.setString(4, agendamento.getEspecialidade());
-        stmt.setTimestamp(5, new Timestamp(agendamento.getDataAgendamento().getTime()));
-        stmt.executeUpdate();
-        stmt.close();
-
-        System.out.println("\nAgendamento adicionado com sucesso!");
-
-    } catch (SQLException e) {
-        throw new RuntimeException(e);
     }
-}
-
 
     public List<Agendamento> listarConsultasAgendadas() {
         List<Agendamento> consultasAgendadas = new ArrayList<>();
@@ -92,9 +91,9 @@ public class AgendamentoDAO {
             stmt.setLong(1, idConsulta);
             int rowsAffected = stmt.executeUpdate();
             stmt.close();
-            
+
             return rowsAffected > 0;
-            
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

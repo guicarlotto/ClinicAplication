@@ -10,6 +10,7 @@ import modelo.TelefonePacientes;
 import dao.AgendamentoDAO;
 import java.util.Calendar;
 import modelo.Agendamento;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -17,7 +18,6 @@ public class Main {
         String nome, telefone;
         Scanner teclado = new Scanner(System.in);
         PacienteDAO pacienteDAO = new PacienteDAO();
-
 
         do {
 
@@ -29,7 +29,7 @@ public class Main {
 
             opc = teclado.nextInt();
             teclado.nextLine();
-            
+
             switch (opc) {
 
                 case 1 -> {
@@ -39,14 +39,14 @@ public class Main {
                     nome = teclado.nextLine();
                     System.out.print("\nTelefone: ");
                     telefone = teclado.nextLine();
-                    
-                    TelefonePacientes novoPaciente = new TelefonePacientes (nome,telefone);
+
+                    TelefonePacientes novoPaciente = new TelefonePacientes(nome, telefone);
                     String mensagem = pacienteDAO.adiciona(novoPaciente);
                     System.out.println(mensagem);
                 }
 
                 case 2 -> {
-                        
+
                     List<TelefonePacientes> pacientes = pacienteDAO.consultaListaPaciente();
 
                     System.out.println("\nLista de Pacientes:");
@@ -61,9 +61,9 @@ public class Main {
                     TelefonePacientes pacienteSelecionado = null;
                     for (TelefonePacientes paciente : pacientes) {
                         if (paciente.getId() == idPacienteSelecionado) {
-                            pacienteSelecionado = paciente;        
+                            pacienteSelecionado = paciente;
+                        }
                     }
-                }
                     if (pacienteSelecionado != null) {
                         System.out.print("\nDigite a data da consulta (formato dd/mm/aaaa): ");
                         String dataConsulta = teclado.nextLine();
@@ -107,10 +107,11 @@ public class Main {
 
                         } catch (ParseException e) {
                             System.out.println("\nData ou hora inválida!");
-                            break;
+
                         }
+                    }
+                    break;
                 }
-                }        
                 case 3 -> {
                     // Listar as consultas agendadas
                     AgendamentoDAO agendamentoDAO = new AgendamentoDAO();
@@ -133,7 +134,7 @@ public class Main {
                         System.out.println("\nFalha ao cancelar a consulta. Verifique o ID informado.");
                     }
                     break;
-}
+                }
 
                 case 0 -> {
 
